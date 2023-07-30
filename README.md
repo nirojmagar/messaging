@@ -13,7 +13,7 @@
 
 ```bash
 # build and run all instances
-$ docker-compose build
+$ docker-compose up --build
 ```
 ## File System
     .
