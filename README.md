@@ -1,5 +1,5 @@
 <h2 align="center">
-  Zegal Message Queue Demo
+  Message Queue Demo
 </h2>
 
 ## Description
