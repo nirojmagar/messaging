@@ -11,6 +11,13 @@ async function bootstrap() {
     clientId: 'message-consumer-backend',
     brokers: ['kafka:9092'],
   });
+  await kafka.admin().createTopics({
+    topics:[
+      {
+        topic:'messages',
+      }
+    ]
+  })
   const consumer = kafka.consumer({ groupId: 'messaging-group' });
   await consumer.connect();
   await consumer.subscribe({ topic: 'messages', fromBeginning: true });
