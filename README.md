@@ -15,6 +15,14 @@
 # build and run all instances
 $ docker-compose up --build
 ```
+
+## Deployments
+<ul>
+<li><a href="http://localhost:3000" target="_blank">Message Producer Backend - localhost:3000</a></li>
+<li><a href="http://localhost:3001" target="_blank">Message Consumer Backend - localhost:3001</a></li>
+<li><a href="http://localhost" target="_blank">Frontend - localhost ( port 80)</a></li>
+</ul>
+
 ## File System
     .
     ├── backend-producer  #reveives messages 
