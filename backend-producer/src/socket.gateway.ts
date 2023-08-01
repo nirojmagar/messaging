@@ -1,6 +1,8 @@
 import { SubscribeMessage, WebSocketGateway, WebSocketServer } from '@nestjs/websockets';
 import { Server } from 'socket.io';
 import { Kafka, Producer } from 'kafkajs';
+import { UseGuards } from '@nestjs/common';
+import { AuthGuard } from './auth/auth.guard';
 
 @WebSocketGateway({ namespace: 'chat', allowEIO3:true, allowUpgrades:true, cors:{ origin:"*" }, transports: ['websocket'] })
 // @WebSocketGateway(3000, { namespace:'chat', transports: ['websocket'] })

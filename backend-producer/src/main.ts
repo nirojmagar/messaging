@@ -2,6 +2,7 @@ import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { Kafka, Partitioners } from 'kafkajs';
 import { SocketGateway } from './socket.gateway';
+// import { AuthService } from './auth/auth.service';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule, {cors:true});
@@ -25,5 +26,8 @@ async function bootstrap() {
   let serverUrl = await app.getUrl();
   serverUrl = serverUrl.replace('[::1]', 'localhost');
   console.log(` Backend Producer Running At : ${serverUrl}`);
+
+  // const autService = app.get(AuthService);
+  // console.log(await autService.createPassword('password'))
 }
 bootstrap();
