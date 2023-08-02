@@ -2,7 +2,7 @@ import { SubscribeMessage, WebSocketGateway, WebSocketServer } from '@nestjs/web
 import { Server } from 'socket.io';
 import { Kafka, Producer } from 'kafkajs';
 
-@WebSocketGateway({ namespace: 'chat', allowEIO3:true, allowUpgrades:true, cors:{ origin:"*" }, transports: ['websocket'] })
+@WebSocketGateway({ namespace: 'chat', allowEIO3:true, allowUpgrades:true, cors:{ origin:"localhost" }, transports: ['websocket'] })
 // @WebSocketGateway(3000, { namespace:'chat', transports: ['websocket'] })
 export class SocketGateway {
   @WebSocketServer()

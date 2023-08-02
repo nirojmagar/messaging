@@ -2,7 +2,7 @@ import { OnGatewayConnection, OnGatewayDisconnect, SubscribeMessage, WebSocketGa
 import { Server } from 'socket.io';
 import { Kafka, Consumer } from 'kafkajs';
 
-@WebSocketGateway({ namespace: 'chat', allowEIO3:true, allowUpgrades:true, cors:{ origin:"*" }, transports: ['websocket'] })
+@WebSocketGateway({ namespace: 'chat', allowEIO3:true, allowUpgrades:true, cors:{ origin:"localhost" }, transports: ['websocket'] })
 // @WebSocketGateway(3001, { namespace:'chat', transports: ['websocket'] })
 export class SocketGateway implements OnGatewayConnection, OnGatewayDisconnect {
   @WebSocketServer()
