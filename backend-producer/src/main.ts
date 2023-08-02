@@ -11,6 +11,7 @@ async function bootstrap() {
     clientId: 'message-producer-backend',
     brokers: ['kafka:9092'],
   });
+  
   // remove createPartitioner: Partitioners.LegacyPartitioner and set KAFKAJS_NO_PARTITIONER_WARNING to get rid of warning 
   // Ref : https://kafka.js.org/docs/migration-guide-v2.0.0
   const producer = kafka.producer({ createPartitioner: Partitioners.LegacyPartitioner });
