@@ -2,7 +2,7 @@ import { OnGatewayConnection, OnGatewayDisconnect, SubscribeMessage, WebSocketGa
 import { Server } from 'socket.io';
 import { Kafka, Consumer } from 'kafkajs';
 
-@WebSocketGateway({ namespace: 'chat', allowEIO3:true, allowUpgrades:true, cors:{ origin:"*" }, transports: ['websocket'] })
+@WebSocketGateway({ namespace: 'chat', allowEIO3:true, allowUpgrades:true, cors:{ origin:"localhost" }, transports: ['websocket'] })
 // @WebSocketGateway(3001, { namespace:'chat', transports: ['websocket'] })
 export class SocketGateway implements OnGatewayConnection, OnGatewayDisconnect {
   @WebSocketServer()
@@ -21,6 +21,7 @@ export class SocketGateway implements OnGatewayConnection, OnGatewayDisconnect {
         try {
           // Receive messages from Kafka topic and emit to the Socket.IO clients
           const payload = JSON.parse(message.value.toString());
+          if( payload.priority < 7 )return;// apply priority filter
           this.server.emit('message', payload);
           console.log( message.value.toString() )
         } catch (error) {

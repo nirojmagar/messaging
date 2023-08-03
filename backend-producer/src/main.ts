@@ -3,23 +3,26 @@ import { AppModule } from './app.module';
 import { Kafka, Partitioners } from 'kafkajs';
 import { SocketGateway } from './socket.gateway';
 // import { AuthService } from './auth/auth.service';
+import * as cookieParser from 'cookie-parser';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule, {cors:true});
+  app.use(cookieParser());
 
   // Set up Kafka producer
-  const kafka = new Kafka({
-    clientId: 'message-producer-backend',
-    brokers: ['kafka:9092'],
-  });
+  // const kafka = new Kafka({
+  //   clientId: 'message-producer-backend',
+  //   brokers: ['kafka:9092'],
+  // });
+  
   // remove createPartitioner: Partitioners.LegacyPartitioner and set KAFKAJS_NO_PARTITIONER_WARNING to get rid of warning 
   // Ref : https://kafka.js.org/docs/migration-guide-v2.0.0
-  const producer = kafka.producer({ createPartitioner: Partitioners.LegacyPartitioner });
-  await producer.connect();
+  // const producer = kafka.producer({ createPartitioner: Partitioners.LegacyPartitioner });
+  // await producer.connect();
 
   // Inject Kafka producer instance into Socket.IO gateway
   const socketGateway = app.get(SocketGateway);
-  socketGateway.setProducer(producer);
+  // socketGateway.setProducer(producer);
 
   // Start the NestJS application
   await app.listen(3000);

@@ -16,5 +16,5 @@ COPY . .
 # Expose the port your NestJS backend for message producer is listening on
 EXPOSE 3000
 
-# Command to start the backend producer application
+# Command to build & start the backend producer application
 CMD ["npm", "run", "start"]

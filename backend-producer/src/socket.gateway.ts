@@ -2,15 +2,18 @@ import { SubscribeMessage, WebSocketGateway, WebSocketServer } from '@nestjs/web
 import { Server } from 'socket.io';
 import { Kafka, Producer } from 'kafkajs';
 import { UseGuards } from '@nestjs/common';
-import { AuthGuard } from './auth/auth.guard';
+import { WsGuard } from './auth/ws.guard';
 
-@WebSocketGateway({ namespace: 'chat', allowEIO3:true, allowUpgrades:true, cors:{ origin:"*" }, transports: ['websocket'] })
+@UseGuards(WsGuard)
+@WebSocketGateway({ namespace: 'chat', allowEIO3:true, allowUpgrades:true, cors:{ origin:"localhost" }, transports: ['websocket'] })
 // @WebSocketGateway(3000, { namespace:'chat', transports: ['websocket'] })
 export class SocketGateway {
   @WebSocketServer()
   server: Server;
 
   private producer: Producer;
+
+  on
 
   setProducer(producer: Producer) {
     this.producer = producer;

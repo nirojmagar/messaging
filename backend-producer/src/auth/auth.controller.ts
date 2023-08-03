@@ -1,6 +1,7 @@
-import { Body, Controller, Get, Post, Req, UnauthorizedException, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, Post, Req, UnauthorizedException, UseGuards, Res } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { AuthGuard } from './auth.guard';
+import { Response } from 'express';
 
 @Controller('auth')
 export class AuthController {
@@ -9,11 +10,17 @@ export class AuthController {
     ){}
 
     @Post('/login')
-    login(@Body() loginData){
+    async login(@Body() loginData, @Res() res: Response){
         if ( !this.authService.verifyLoginCredential(loginData.email, loginData.password) ) {
             throw new UnauthorizedException();
         }
-        return this.authService.createToken(loginData.email)
+        const token = await this.authService.createToken(loginData.email)
+        return res.cookie('token', token, {
+            // httpOnly: true,
+            secure: false,
+            sameSite: 'lax',
+            expires: new Date(Date.now() + 1 * 24 * 60 * 1000),
+        }).send({token});
     }
 
     @UseGuards(AuthGuard)
